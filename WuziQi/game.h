@@ -3,28 +3,31 @@
 
 #include <cstring>
 #include <QTime>
-
+#include <QDebug>
 #define SizeOfBroad 15
 
 struct Game
 {
+    Game();
     int ChessBroad[SizeOfBroad][SizeOfBroad];
     int RobotMaxPosX,RobotMaxPosY;
-    int PeopleMaxPosX,PeoplerMaxPosY;
+    int PeopleMaxPosX,PeopleMaxPosY;
     int RobotMaxGrade,PeopleMaxGrade;
+    int RobotPutPosX,RobotPutPosY;   //机器下子位置
     bool NowPlayer;
-    Game();
     void GameWithPeople();
     void GameInit();
-    void GetPosGrade(int posx,int posy);
     void GetGradeOnBroad();
     void RobotPutChess();
     void GradeInit();
     void SetNowPlayer(bool x);
-    bool PutChessOn(int posx,int posy);
-    bool canPutChess(int posx,int posy);
-    bool CheckWin(int posx,int posy);
+    void RobotGetPos();
     bool GetNowPlayer();
+    bool PutChessOn(int posx,int posy);
+    bool CanPutChess(int posx,int posy);
+    bool CheckWin(int posx,int posy);
+    int GetPosGrade(int posx,int posy,int now);
+    int GetChess(int x,int y,int dir,int len);
     int GetChessOnBroad(int posx,int posy);
     //int GetPosType(int posx,int posy,int dir,int flag)
 };

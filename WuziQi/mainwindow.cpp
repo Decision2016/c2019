@@ -114,12 +114,11 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *){
         if(posx) break;
     }
     if(posx == 0 && posy == 0) return ;
-    if(game->canPutChess(posx,posy)) {
+    if(game->CanPutChess(posx,posy)) {
         game->PutChessOn(posx,posy);
         CurrentX = GradX;
         CurrentY = GradY;
         update();
-        //game->SetNowPlayer(!game->GetNowPlayer());
     }
     if(game->CheckWin(posx,posy)){
         QString str;
@@ -128,5 +127,17 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *){
         QMessageBox::information(this,"提示",str);
         game->GameInit();
     }
+    game->SetNowPlayer(1);
+    game->RobotPutChess();
+    qDebug() << game->GetNowPlayer() <<endl;
+    update();
+    if(game->CheckWin(posx,posy)){
+        QString str;
+        str = game->GetNowPlayer() == 1 ? "black" : "white";
+        str += " win!";
+        QMessageBox::information(this,"提示",str);
+        game->GameInit();
+    }
+    game->SetNowPlayer(0);
 }
 
