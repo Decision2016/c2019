@@ -8,12 +8,12 @@
 
 struct Game
 {
-    Game();
     int ChessBroad[SizeOfBroad][SizeOfBroad];
     int RobotMaxPosX,RobotMaxPosY;
     int PeopleMaxPosX,PeoplerMaxPosY;
     int RobotMaxGrade,PeopleMaxGrade;
     bool NowPlayer;
+    Game();
     void GameWithPeople();
     void GameInit();
     void GetPosGrade(int posx,int posy);
