@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QMenu>
 #include <game.h>
+#include <windows.h>
 
 #define SizeOfBroad 15
 #define SizeOfGrid 40
@@ -22,8 +23,7 @@
 #define SpaceCross 5
 #define CrossSize 5
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow{
     Q_OBJECT
 public:
     QLabel *label = new QLabel(this);

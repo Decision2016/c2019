@@ -27,11 +27,23 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    game.cpp
+    game.cpp \
+    mcts.cpp \
+    point.cpp \
+    broad.cpp \
+    broadgrade.cpp \
+    node.cpp \
+    alphabeta.cpp
 
 HEADERS += \
         mainwindow.h \
-    game.h
+    game.h \
+    mcts.h \
+    point.h \
+    broad.h \
+    broadgrade.h \
+    node.h \
+    alphabeta.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

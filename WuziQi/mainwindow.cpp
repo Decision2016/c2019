@@ -5,12 +5,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     setFixedSize(Width,Hight);
     CurrentX = CurrentY = 0;
+    //centralWidget->setMouseTracking(true);
     this->setMouseTracking(true);
     label->setGeometry(0,0,100,10);
+    game->GameInit();
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
 
 }
 
@@ -114,11 +115,12 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *){
         if(posx) break;
     }
     if(posx == 0 && posy == 0) return ;
-    if(game->CanPutChess(posx,posy)) {
+    if(game->canPutChess(posx,posy)) {
         game->PutChessOn(posx,posy);
         CurrentX = GradX;
         CurrentY = GradY;
         update();
+        //game->SetNowPlayer(!game->GetNowPlayer());
     }
     if(game->CheckWin(posx,posy)){
         QString str;
@@ -127,17 +129,11 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *){
         QMessageBox::information(this,"提示",str);
         game->GameInit();
     }
-    game->SetNowPlayer(1);
-    game->RobotPutChess();
-    qDebug() << game->GetNowPlayer() <<endl;
+    game -> SetNowPlayer(1);
+    Sleep(100);
+    game ->RobotPutChess(1);
+    game -> SetNowPlayer(0);
+    Sleep(100);
     update();
-    if(game->CheckWin(posx,posy)){
-        QString str;
-        str = game->GetNowPlayer() == 1 ? "black" : "white";
-        str += " win!";
-        QMessageBox::information(this,"提示",str);
-        game->GameInit();
-    }
-    game->SetNowPlayer(0);
 }
 
