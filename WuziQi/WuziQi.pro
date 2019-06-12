@@ -25,27 +25,30 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
+    main.cpp \
+    mainwindow.cpp \
     game.cpp \
     mcts.cpp \
     point.cpp \
     broad.cpp \
     broadgrade.cpp \
     node.cpp \
-    alphabeta.cpp
+    alphabeta.cpp \
 
 HEADERS += \
-        mainwindow.h \
+    mainwindow.h \
     game.h \
     mcts.h \
     point.h \
     broad.h \
     broadgrade.h \
     node.h \
-    alphabeta.h
+    alphabeta.h \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    res/ico/logo.ico

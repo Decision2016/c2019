@@ -24,27 +24,8 @@ int Game::GetChessOnBroad(int posx,int posy){
 }
 
 bool Game::CheckWin(int posx,int posy){
-    int CheckX[8] = {0,1,1,1,0,-1,-1,-1};
-    int checkY[8] = {-1,-1,0,1,1,1,0,-1};
-    int nowchess;
-    if(NowPlayer) nowchess = 1;
-    else nowchess = 2;
-    for(int i = 0;i<8;i++){
-        int cnt = 1;
-        int tposx = posx;
-        int tposy = posy;
-        while(ChessBroad.Get(tposx,tposy) != 0){
-            if(tposx == 0 || tposx == 14 || tposy == 0|| tposy == 14) break;
-            if(cnt == 5) break;
-            tposx += CheckX[i];
-            tposy += checkY[i];
-            if(ChessBroad.Get(tposx,tposy) == nowchess) cnt++;
-            else break;
-        }
-        if(cnt == 5) return true;
-        else continue;
-    }
-    return false;
+    bool res = ChessBroad.StatuCheck(posx,posy);
+    return res;
 }
 
 
@@ -62,9 +43,13 @@ void Game::SetNowPlayer(bool x){
     NowPlayer = x;
 }
 
-void Game::RobotPutChess(int Type){
+//根据选项调用不同的AI接口
+Point Game::RobotPutChess(int Type,int x,int y){
     AlphaBeta a;
     a.Nowbroad = ChessBroad;
+    a.x = x;
+    a.y = y;
     Point Nxt = a.GetNextPoint();
     ChessBroad.Put(Nxt.x,Nxt.y,AI);
+    return Nxt;
 }

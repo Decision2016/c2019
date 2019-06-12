@@ -6,10 +6,10 @@ Broad::Broad()
 }
 
 bool Broad::StatuCheck(int x,int y){
-    int NowStatu;
-    for(int i = 0;i < 8;i++){
+    std::string NowStatu;
+    for(int i = 0;i < DirSum;i++){
         NowStatu = GetStatu(x,y,i);
-        if(NowStatu == 242 || NowStatu == 121) return true;
+        if(NowStatu.find("22222") != std::string::npos || NowStatu.find("11111") != std::string::npos) return true;
     }
     return false;
 }
@@ -27,7 +27,7 @@ void Broad::Clear(){
 }
 
 bool Broad::CheckPos(int x,int y){
-    bool flag = 0;
+    bool flag = false;
     for(int i = -1;i <= 1;i++){
         for(int j = -1;j <= 1;j++){
             if(i == 0 && j == 0) {
@@ -47,88 +47,91 @@ bool Broad::CheckPos(int x,int y){
     return flag;
 }
 
-int Broad::GetStatu(int x,int y,int dir){
-    int res = 0,posx = x,posy = y;
-    int dirX[8] = {0,1,1,1,0,-1,-1,-1};
-    int dirY[8] = {-1,-1,0,1,1,1,0,-1};
-    for(int i = 0;i <= 5;i++){
-        if(posx == 0 || posx == 14 || posy == 0||posy == 14){
+std::string Broad::GetStatu(int x,int y,int dir){
+    std::string res;
+    int posx,posy;
+    int dirX[4] = {0,1,1,1};
+    int dirY[4] = {1,0,1,-1};
+    for(int i = x,j = y;;i -= dirX[dir],j -= dirY[dir]){
+        if(i == 0 || j == 0 || i == 14 || j == 14){
+            posx = i;
+            posy = j;
             break;
         }
-        res = res*3 + this ->Get(posx,posy);
-        posx += dirX[dir];
-        posy += dirY[dir];
+    }
+    for(int i = posx,j = posy;i >= 0 && j >= 0 && i <= 14 && j <= 14;i += dirX[dir],j += dirY[dir]){
+        res.push_back((char)(broad[i][j] + '0'));
     }
     return res;
 }
 
-int Broad::GradeGet(int Statu){
-    int AI_WIN[] = {242};
-    int People_WIN[] = {121};
-    int AI_Huo4[] = {240};
-    int People_Huo4[] = {120};
-    int AI_Chong4[] = {241,483,188,224,236};
-    int People_Chong4[] = {122,606,94,112,118};
-    int AI_Huo3[] = {78,234,186,222};
-    int People_Huo3[] = {39,117,93,111};
-    int AI_Mian3[] = {79,187,223,235,477,465,429,321,26,170,182,186,62,170,218,222,74,182,218,234};
-    int People_Mian3[] = {41,95,113,119,603,597,579,525,13,85,91,93,31,85,109,111,37,91,109,117};
-    int AI_Huo2[] = {24,60,72,72,180,216,24,168,180,60,168,216};
-    int People_Huo2[] = {12,30,36,36,90,108,12,84,90,30,84,108};
-    int AI_Mian2[] = {25,61,169,164,910,946,459,423,411,802};
-    int People_Mian2[] = {14,32,86,82,1550,1568,594,576,570,1496};
-    int AI_One[] = {2};
-    int People_One[] = {1};
-    int NONE[] = {0};
+int Broad::GradeGet(std::string Statu){
+    std::string AI_WIN[] = {"22222"};
+    std::string People_WIN[] = {"11111"};
+    std::string AI_Huo4[] = {"022220"};
+    std::string People_Huo4[] = {"011110"};
+    std::string AI_Chong4[] = {"022221", "122220", "20222", "22022", "22202"};
+    std::string People_Chong4[] = {"011112", "211110", "10111", "11011", "11101"};
+    std::string AI_Huo3[] = {"002220", "022200", "020220", "022020"};
+    std::string People_Huo3[] = {"001110", "011100", "010110", "011010"};
+    std::string AI_Mian3[] = {"002221", "020221", "022021", "022201", "122200", "122020", "120220", "102220", "00222", "20022", "20202", "20220", "02022", "20022", "22002", "22020", "02202", "20202", "22002", "22200"};
+    std::string People_Mian3[] = {"001112", "010112", "011012", "011102", "211100", "211010", "210110", "201110", "00111", "10011", "10101", "10110", "01011", "10011", "11001", "11010", "01101", "10101", "11001", "11100"};
+    std::string AI_Huo2[] = {"000220", "002020", "002200", "002200", "020200", "022000", "000220", "020020", "020200", "002020", "020020", "022000"};
+    std::string People_Huo2[] = {"000110", "001010", "001100", "001100", "010100", "011000", "000110", "010010", "010100", "001010", "010010", "011000"};
+    std::string AI_Mian2[] = {"000221", "002021", "020021", "20002", "1020201", "1022001", "122000", "120200", "120020", "1002201"};
+    std::string People_Mian2[] = {"000112", "001012", "010012", "10001", "2010102", "2011002", "211000", "210100", "210010", "2001102"};
+    std::string AI_One[] = {"2"};
+    std::string People_One[] = {"1"};
+    std::string NONE[] = {"0"};
 
     for(int i = 0;i < Win;i++){
-        if(AI_WIN[i] == Statu) return 100000000;
-        else if(People_WIN[i] == Statu) return -100000000;
+        if(Statu.find(AI_WIN[i]) != std::string::npos) return 100000000;
+        else if(Statu.find(People_WIN[i]) != std::string::npos) return -100000000;
     }
 
     for(int i = 0;i < Huo4;i++){
-        if(AI_Huo4[i] == Statu) return 10000000;
-        else if(People_Huo4[i] == Statu) return -10000000;
+        if(Statu.find(AI_Huo4[i]) != std::string::npos) return 10000000;
+        else if(Statu.find(People_Huo4[i]) != std::string::npos) return -10000000;
     }
 
     for(int i = 0;i < Chong4;i++){
-        if(AI_Chong4[i] == Statu) return 1000000;
-        else if(People_Chong4[i] == Statu) return -1000000;
+        if(Statu.find(AI_Chong4[i]) != std::string::npos) return 1000000;
+        else if(Statu.find(People_Chong4[i]) != std::string::npos) return -1000000;
     }
 
     for(int i = 0;i < Huo3;i++){
-        if(AI_Huo3[i] == Statu) return 100000;
-        else if(People_Huo3[i] == Statu) return -100000;
+        if(Statu.find(AI_Huo3[i]) != std::string::npos) return 100000;
+        else if(Statu.find(People_Huo3[i]) != std::string::npos) return -100000;
     }
 
     for(int i = 0;i < Mian3;i++){
-        if(AI_Mian3[i] == Statu) return 10000;
-        else if(People_Mian3[i] == Statu) return -10000;
+        if(Statu.find(AI_Mian3[i]) != std::string::npos) return 10000;
+        else if(Statu.find(People_Mian3[i]) != std::string::npos) return -10000;
     }
 
     for(int i = 0;i < Huo2;i++){
-        if(AI_Huo2[i] == Statu) return 1000;
-        else if(People_Huo2[i] == Statu) return -1000;
+        if(Statu.find(AI_Huo2[i]) != std::string::npos) return 1000;
+        else if(Statu.find(People_Huo2[i]) != std::string::npos) return -1000;
     }
 
     for(int i = 0;i < Mian2;i++){
-        if(AI_Mian2[i] == Statu) return 100;
-        else if(People_Mian2[i] == Statu) return -100;
+        if(Statu.find(AI_Mian2[i]) != std::string::npos) return 100;
+        else if(Statu.find(People_Mian2[i]) != std::string::npos) return -100;
     }
 
     for(int i = 0;i < One;i++){
-        if(AI_One[i] == Statu) return 10;
-        else if(People_One[i] == Statu) return -10;
+        if(Statu.find(AI_One[i]) != std::string::npos) return 10;
+        else if(Statu.find(People_One[i]) != std::string::npos) return -10;
     }
 
     for(int i = 0;i < None;i++){
-        if(NONE[i] == Statu) return 1;
+        if(Statu.find(NONE[i]) != std::string::npos) return 1;
     }
     return 0;
 }
 
 int Broad::GradeCaculate(int x,int y){
-    int NowStatu;
+    std::string NowStatu;
     int res = 0;
     for(int i = 0;i < DirSum;i++){
         NowStatu = GetStatu(x,y,i);

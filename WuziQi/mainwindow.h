@@ -11,6 +11,7 @@
 #include <QMenu>
 #include <game.h>
 #include <windows.h>
+#include "point.h"
 
 #define SizeOfBroad 15
 #define SizeOfGrid 40
@@ -30,6 +31,7 @@ public:
     Game *game = new Game();
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    Point res;
     void PaintPieces();
     void TestPrint(int x,int y);
     void GameInit();

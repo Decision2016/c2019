@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
     CurrentX = CurrentY = 0;
     //centralWidget->setMouseTracking(true);
     this->setMouseTracking(true);
+    setWindowTitle("五子棋");
+    setWindowIcon(QIcon(":/res/ico/logo.ico"));
     label->setGeometry(0,0,100,10);
     game->GameInit();
 }
@@ -117,23 +119,33 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *){
     if(posx == 0 && posy == 0) return ;
     if(game->canPutChess(posx,posy)) {
         game->PutChessOn(posx,posy);
-        CurrentX = GradX;
-        CurrentY = GradY;
         update();
-        //game->SetNowPlayer(!game->GetNowPlayer());
+        if(game->CheckWin(posx,posy)){
+            QString str;
+            str = game->GetNowPlayer() == 1 ? "black" : "white";
+            str += " win!";
+            QMessageBox::information(this,"提示",str);
+            game->GameInit();
+            game -> SetNowPlayer(0);
+            update();
+            return ;
+        }
+        game -> SetNowPlayer(1);
+        res = game ->RobotPutChess(1,posx,posy);
+        CurrentX = SpaceSize + res.x * SizeOfGrid;
+        CurrentY = SpaceSize + res.y * SizeOfGrid;
+        game -> SetNowPlayer(0);
+        update();
+        if(game->CheckWin(res.x,res.y)){
+            QString str;
+            str = game->GetNowPlayer() == 1 ? "black" : "white";
+            str += " win!";
+            QMessageBox::information(this,"提示",str);
+            game->GameInit();
+            game -> SetNowPlayer(0);
+            update();
+            return ;
+        }
     }
-    if(game->CheckWin(posx,posy)){
-        QString str;
-        str = game->GetNowPlayer() == 1 ? "black" : "white";
-        str += " win!";
-        QMessageBox::information(this,"提示",str);
-        game->GameInit();
-    }
-    game -> SetNowPlayer(1);
-    Sleep(100);
-    game ->RobotPutChess(1);
-    game -> SetNowPlayer(0);
-    Sleep(100);
-    update();
 }
 

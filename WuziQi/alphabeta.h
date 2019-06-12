@@ -9,18 +9,19 @@
 #include <QtDebug>
 
 #define INF 1000000007
-#define MAXDEP 2
+#define MAXDEP 1
 #define People 1
 #define AI 2
 
 struct AlphaBeta{
-    int x,y;
+    int x,y,cnt;
     Point Res,Temp;
     Broad Nowbroad;
     BroadGrade Grade;
     Point GetNextPoint();
-    int AlphaBetaEngin(Node node,int depth,int alaph,int beta);
+    int AlphaBetaEngin(const Node& node,int depth,int alaph,int beta);
     Point GetBestStep(std::vector<Node> Statu);
+    void Output();
     AlphaBeta();
 };
 

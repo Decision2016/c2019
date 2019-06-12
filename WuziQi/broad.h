@@ -3,9 +3,12 @@
 
 #include<cstring>
 #include<QtDebug>
+#include<string>
+#include<QString>
+#include<iostream>
 
 #define SizeOfBroad 15
-#define DirSum 8
+#define DirSum 4
 #define Win 1
 #define Huo4 1
 #define Chong4 5
@@ -22,10 +25,10 @@ struct Broad{
     void Clear();
     void Put(int x,int y,int type);
     int Get(int x,int y);
-    int GetStatu(int x,int y,int dir);
+    std::string GetStatu(int x,int y,int dir);
     int GradeCaculate(int x,int y);
     int GradeSumCaculate();
-    int GradeGet(int Statu);
+    int GradeGet(std::string Statu);
     bool CheckPos(int x,int y);
     bool StatuCheck(int x,int y);
     Broad();

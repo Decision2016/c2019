@@ -20,7 +20,7 @@ struct Game{
     void GameWithPeople();
     void GameInit();
     void SetNowPlayer(bool x);
-    void RobotPutChess(int Type);
+    Point RobotPutChess(int Type,int x,int y);
     bool PutChessOn(int posx,int posy);
     bool canPutChess(int posx,int posy);
     bool CheckWin(int posx,int posy);
