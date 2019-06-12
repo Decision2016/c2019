@@ -9,7 +9,7 @@
 #include <QtDebug>
 
 #define INF 1000000007
-#define MAXDEP 1
+#define MAXDEP 2
 #define People 1
 #define AI 2
 
