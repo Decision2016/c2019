@@ -1,11 +1,11 @@
-#include "broad.h"
+#include "board.h"
 
-Broad::Broad()
+Board::Board()
 {
 
 }
 
-bool Broad::StatuCheck(int x,int y){
+bool Board::StatuCheck(int x,int y){
     std::string NowStatu;
     for(int i = 0;i < DirSum;i++){
         NowStatu = GetStatu(x,y,i);
@@ -14,19 +14,19 @@ bool Broad::StatuCheck(int x,int y){
     return false;
 }
 
-void Broad::Put(int x,int y,int type){
-    broad[x][y] = type;
+void Board::Put(int x,int y,int type){
+    board[x][y] = type;
 }
 
-int Broad::Get(int x,int y){
-    return broad[x][y];
+int Board::Get(int x,int y){
+    return board[x][y];
 }
 
-void Broad::Clear(){
-    memset(broad,0,sizeof(broad));
+void Board::Clear(){
+    memset(board,0,sizeof(board));
 }
 
-bool Broad::CheckPos(int x,int y){
+bool Board::CheckPos(int x,int y){
     bool flag = false;
     for(int i = -1;i <= 1;i++){
         for(int j = -1;j <= 1;j++){
@@ -36,7 +36,7 @@ bool Broad::CheckPos(int x,int y){
             else if(x + i == 0 || x + i == 14 || y + j == 0 || y + j == 14) {
                 continue;
             }
-            if(broad[x + i][y + j] == 0){
+            if(board[x + i][y + j] == 0){
                 continue;
             }
             else {
@@ -47,7 +47,7 @@ bool Broad::CheckPos(int x,int y){
     return flag;
 }
 
-std::string Broad::GetStatu(int x,int y,int dir){
+std::string Board::GetStatu(int x,int y,int dir){
     std::string res;
     int posx,posy;
     int dirX[4] = {0,1,1,1};
@@ -60,12 +60,12 @@ std::string Broad::GetStatu(int x,int y,int dir){
         }
     }
     for(int i = posx,j = posy;i >= 0 && j >= 0 && i <= 14 && j <= 14;i += dirX[dir],j += dirY[dir]){
-        res.push_back((char)(broad[i][j] + '0'));
+        res.push_back((char)(board[i][j] + '0'));
     }
     return res;
 }
 
-int Broad::GradeGet(std::string Statu){
+int Board::GradeGet(std::string Statu){
     std::string AI_WIN[] = {"22222"};
     std::string People_WIN[] = {"11111"};
     std::string AI_Huo4[] = {"022220"};
@@ -130,7 +130,7 @@ int Broad::GradeGet(std::string Statu){
     return 0;
 }
 
-int Broad::GradeCaculate(int x,int y){
+int Board::GradeCaculate(int x,int y){
     std::string NowStatu;
     int res = 0;
     for(int i = 0;i < DirSum;i++){
@@ -140,7 +140,7 @@ int Broad::GradeCaculate(int x,int y){
     return res;
 }
 
-int Broad::GradeSumCaculate(){
+int Board::GradeSumCaculate(){
     int res = 0;
     for(int i = 1;i < 14;i++){
         for(int j = 1;j < 14;j++){

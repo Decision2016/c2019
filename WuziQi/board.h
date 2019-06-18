@@ -1,5 +1,5 @@
-#ifndef BROAD_H
-#define BROAD_H
+#ifndef Board_H
+#define Board_H
 
 #include<cstring>
 #include<QtDebug>
@@ -7,7 +7,7 @@
 #include<QString>
 #include<iostream>
 
-#define SizeOfBroad 15
+#define SizeOfBoard 15
 #define DirSum 4
 #define Win 1
 #define Huo4 1
@@ -20,8 +20,8 @@
 #define None 1
 
 
-struct Broad{
-    int broad[SizeOfBroad][SizeOfBroad];
+struct Board{
+    int board[SizeOfBoard][SizeOfBoard];
     void Clear();
     void Put(int x,int y,int type);
     int Get(int x,int y);
@@ -31,7 +31,7 @@ struct Broad{
     int GradeGet(std::string Statu);
     bool CheckPos(int x,int y);
     bool StatuCheck(int x,int y);
-    Broad();
+    Board();
 };
 
-#endif // BROAD_H
+#endif // Board_H

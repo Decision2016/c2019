@@ -30,20 +30,20 @@ SOURCES += \
     game.cpp \
     mcts.cpp \
     point.cpp \
-    broad.cpp \
-    broadgrade.cpp \
     node.cpp \
     alphabeta.cpp \
+    board.cpp \
+    boardgrade.cpp
 
 HEADERS += \
     mainwindow.h \
     game.h \
     mcts.h \
     point.h \
-    broad.h \
-    broadgrade.h \
     node.h \
     alphabeta.h \
+    board.h \
+    boardgrade.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

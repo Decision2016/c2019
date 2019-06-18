@@ -4,16 +4,16 @@
 #include <cstring>
 #include <QTime>
 #include "point.h"
-#include "broad.h"
+#include "board.h"
 #include "alphabeta.h"
 #include "mcts.h"
 
-#define SizeOfBroad 15
+#define SizeOfBoard 15
 #define AI 2
 #define People 1
 
 struct Game{
-    Broad ChessBroad;
+    Board ChessBoard;
     int PeopleMaxPosX,PeoplerMaxPosY;
     bool NowPlayer;
     Game();
@@ -25,7 +25,7 @@ struct Game{
     bool canPutChess(int posx,int posy);
     bool CheckWin(int posx,int posy);
     bool GetNowPlayer();
-    int GetChessOnBroad(int posx,int posy);
+    int GetChessOnBoard(int posx,int posy);
     //int GetPosType(int posx,int posy,int dir,int flag)
 };
 

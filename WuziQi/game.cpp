@@ -7,24 +7,24 @@ Game::Game(){
 bool Game::canPutChess(int posx,int posy){
     //if(NowPlayer != 0) return false;
     if(posx == 0 || posx == 14 || posy == 0 ||posy == 14) return false;
-    if(ChessBroad.Get(posx,posy) == 1 || ChessBroad.Get(posx,posy) == 2) return false;
+    if(ChessBoard.Get(posx,posy) == 1 || ChessBoard.Get(posx,posy) == 2) return false;
     return true;
 }
 
 bool Game::PutChessOn(int posx,int posy){
     if(!canPutChess(posx,posy)) return false;
-    if(!NowPlayer) ChessBroad.Put(posx,posy,1);
-    else ChessBroad.Put(posx,posy,2);
+    if(!NowPlayer) ChessBoard.Put(posx,posy,1);
+    else ChessBoard.Put(posx,posy,2);
     NowPlayer = !NowPlayer;
     return true;
 }
 
-int Game::GetChessOnBroad(int posx,int posy){
-    return ChessBroad.Get(posx,posy);
+int Game::GetChessOnBoard(int posx,int posy){
+    return ChessBoard.Get(posx,posy);
 }
 
 bool Game::CheckWin(int posx,int posy){
-    bool res = ChessBroad.StatuCheck(posx,posy);
+    bool res = ChessBoard.StatuCheck(posx,posy);
     return res;
 }
 
@@ -32,7 +32,7 @@ bool Game::CheckWin(int posx,int posy){
 
 void Game::GameInit(){
     NowPlayer = 0;
-    ChessBroad.Clear();
+    ChessBoard.Clear();
 }
 
 bool Game::GetNowPlayer(){
@@ -46,10 +46,10 @@ void Game::SetNowPlayer(bool x){
 //根据选项调用不同的AI接口
 Point Game::RobotPutChess(int Type,int x,int y){
     AlphaBeta a;
-    a.Nowbroad = ChessBroad;
+    a.Nowboard = ChessBoard;
     a.x = x;
     a.y = y;
     Point Nxt = a.GetNextPoint();
-    ChessBroad.Put(Nxt.x,Nxt.y,AI);
+    ChessBoard.Put(Nxt.x,Nxt.y,AI);
     return Nxt;
 }

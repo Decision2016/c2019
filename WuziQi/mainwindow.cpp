@@ -22,18 +22,18 @@ void MainWindow::paintEvent(QPaintEvent *){
     painter.setRenderHint(QPainter::Antialiasing, true);
     //绘制棋盘
     painter.setPen(QPen(Qt::black,1));
-    for(int i = 0;i<SizeOfBroad;i++){
+    for(int i = 0;i<SizeOfBoard;i++){
         painter.drawLine(SpaceSize,SpaceSize + i * SizeOfGrid,Width - SpaceSize,SpaceSize + i * SizeOfGrid);
     }
 
-    for(int i = 0;i<SizeOfBroad;i++){
+    for(int i = 0;i<SizeOfBoard;i++){
         painter.drawLine(SpaceSize + i * SizeOfGrid,SpaceSize,SpaceSize + i * SizeOfGrid,Hight - SpaceSize);
     }
 
     //绘制棋盘上的9个点
     painter.setPen(QPen(Qt::black,5));
-    for(int i = 3;i<SizeOfBroad;i+=4){
-        for(int j = 3;j<SizeOfBroad;j+=4){
+    for(int i = 3;i<SizeOfBoard;i+=4){
+        for(int j = 3;j<SizeOfBoard;j+=4){
             painter.drawPoint(SpaceSize + i * SizeOfGrid,SpaceSize + j * SizeOfGrid);
         }
     }
@@ -46,12 +46,12 @@ void MainWindow::paintEvent(QPaintEvent *){
         for(int j = 1;j<14;j++){
             int GradX = SpaceSize + i * SizeOfGrid;
             int GradY = SpaceSize + j * SizeOfGrid;
-            if(game->GetChessOnBroad(i,j) == 1){
+            if(game->GetChessOnBoard(i,j) == 1){
                 brush.setColor(Qt::black);
                 painter.setBrush(brush);
                 painter.drawEllipse(GradX - ChessSize ,GradY - ChessSize ,ChessSize*2,ChessSize*2);
             }
-            else if(game->GetChessOnBroad(i,j) == 2){
+            else if(game->GetChessOnBoard(i,j) == 2){
                 brush.setColor(Qt::white);
                 painter.setBrush(brush);
                 painter.drawEllipse(GradX - ChessSize,GradY - ChessSize ,ChessSize*2,ChessSize*2);
@@ -67,7 +67,7 @@ void MainWindow::paintEvent(QPaintEvent *){
             int GradY = SpaceSize + j * SizeOfGrid;
             if(MoveX < GradX + SizeOfGrid / 2 && MoveX > GradX - SizeOfGrid /2 &&MoveY < GradY + SizeOfGrid / 2 && MoveY > GradY - SizeOfGrid /2){
                 //label->setText(QString::number(GradX)+","+QString::number(GradY - SpaceGrid));
-                if(game->GetChessOnBroad(i,j) != 0) break;
+                if(game->GetChessOnBoard(i,j) != 0) break;
                 painter.drawLine(GradX - SizeOfCrossing,GradY - SpaceGrid,GradX - SpaceGrid,GradY - SpaceGrid);
                 painter.drawLine(GradX - SpaceGrid,GradY - SizeOfCrossing,GradX - SpaceGrid,GradY - SpaceGrid);
 

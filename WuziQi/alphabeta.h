@@ -2,8 +2,8 @@
 #define ALAPHBETA_H
 
 #include "point.h"
-#include "broad.h"
-#include "broadgrade.h"
+#include "board.h"
+#include "boardgrade.h"
 #include "node.h"
 #include <vector>
 #include <QtDebug>
@@ -16,8 +16,8 @@
 struct AlphaBeta{
     int x,y,cnt;
     Point Res,Temp;
-    Broad Nowbroad;
-    BroadGrade Grade;
+    Board Nowboard;
+    BoardGrade Grade;
     Point GetNextPoint();
     int AlphaBetaEngin(const Node& node,int depth,int alaph,int beta);
     Point GetBestStep(std::vector<Node> Statu);

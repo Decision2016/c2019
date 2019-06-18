@@ -13,7 +13,7 @@
 #include <windows.h>
 #include "point.h"
 
-#define SizeOfBroad 15
+#define SizeOfBoard 15
 #define SizeOfGrid 40
 #define SizeOfCrossing 15
 #define Width 650
